@@ -56,8 +56,8 @@ if __name__ == "__main__":
     try:
         
 
-        url_pasta = 'https://drive.google.com/drive/folders/1lVNzpYavpcUcEyyaIGwKPsqoFzoN-ZWH'
-        diretorio_local = './pasta_gdown'
+        url_pasta = os.getenv('PASTA_GOOGLE')
+        diretorio_local = os.getenv('DIRETORIO_LOCAL')
 
         if not url_pasta:
             raise ValueError ('''
