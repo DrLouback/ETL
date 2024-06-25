@@ -102,13 +102,12 @@ def pipeline():
         inicializador_tabela(con)
         processados = arquivos_processados(con)
         lista_arquivo_tipo = listar_arquivo_e_tipos(diretorio_local)
-
         if not lista_arquivo_tipo:
             raise ValueError('A lista de arquivos está vazia')
         
+        logs = []   
         for caminho_arquivos, tipo in lista_arquivo_tipo:
             nome_arquivo = os.path.basename(caminho_arquivos)
-
             if nome_arquivo not in processados:
                 df = ler_arquivo(caminho_arquivos, tipo)
                 if df:
@@ -117,9 +116,11 @@ def pipeline():
                     registrar_arquivos(con,nome_arquivo)
                     print(processados)
                     print(f'Arquivo {nome_arquivo} foi processado e salvo.')
+                    logs.append(f'Arquivo {nome_arquivo} foi processado e salvo.')
             else:
                 print(f'Arquivo {nome_arquivo} já foi processado anteriormente.')
-
+                logs.append(f'Arquivo {nome_arquivo} já foi processado anteriormente.')
+        return logs
 
 
 if __name__ == "__main__":  
